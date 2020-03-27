@@ -3,6 +3,8 @@ package com.example.rvexample;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,9 +13,10 @@ public class SecondActivity extends AppCompatActivity {
     TextView  title;
     TextView  description;
     ImageView mainImageView;
+    Button buttonReturn;
     String    data1;
     String    data2;
-    int       myImageView;
+    int       myImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,14 @@ public class SecondActivity extends AppCompatActivity {
         title		    =	findViewById(R.id.title);
         description 	=	findViewById(R.id.description);
         mainImageView	=	findViewById(R.id.mainImageView);
+        buttonReturn    =   findViewById(R.id.buttonReturn);
+
+        buttonReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getData();
         setData();
@@ -29,12 +40,12 @@ public class SecondActivity extends AppCompatActivity {
 
     private void getData() {
         if ((getIntent().hasExtra("data1"))  &&
-                (getIntent().hasExtra("data2"))  &&
-                (getIntent().hasExtra("myImageView")))
+            (getIntent().hasExtra("data2"))  &&
+            (getIntent().hasExtra("myImage")))
         {
-            data1 	    = getIntent().getStringExtra("data1");
-            data2 	    = getIntent().getStringExtra("data2");
-            myImageView = getIntent().getIntExtra("myImageView", 1);
+            data1   = getIntent().getStringExtra("data1");
+            data2   = getIntent().getStringExtra("data2");
+            myImage = getIntent().getIntExtra("myImage", 1);
         }
         else
         {
@@ -45,6 +56,6 @@ public class SecondActivity extends AppCompatActivity {
     private void setData() {
         title.setText(data1);
         description.setText(data2);
-        mainImageView.setImageResource(myImageView);
+        mainImageView.setImageResource(myImage);
     }
 }

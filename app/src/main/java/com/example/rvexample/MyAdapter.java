@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,8 +27,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         images = img;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.my_row, parent, false);
         return new MyViewHolder(view);
@@ -37,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.myText1.setText(data1[position]);
         holder.myText2.setText(data2[position]);
-        holder.myImageView.setImageResource(images[position]);
+        holder.myImage.setImageResource(images[position]);
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 Intent intent = new Intent(context, SecondActivity.class);
                 intent.putExtra("data1", data1[position]);
                 intent.putExtra("data2", data2[position]);
-                intent.putExtra("myImageView", images[position]);
+                intent.putExtra("myImage", images[position]);
                 context.startActivity(intent);
             }
         });
@@ -59,14 +61,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView  myText1;
         TextView  myText2;
-        ImageView myImageView;
+        ImageView myImage;
         ConstraintLayout mainLayout;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            myText1     = itemView.findViewById(R.id.title);
-            myText2     = itemView.findViewById(R.id.description);
-            myImageView = itemView.findViewById(R.id.mainImageView);
+            myText1     = itemView.findViewById(R.id.myText1);
+            myText2     = itemView.findViewById(R.id.myText2);
+            myImage     = itemView.findViewById(R.id.myImageView);
             mainLayout  = itemView.findViewById(R.id.mainLayout);
         }
     }
